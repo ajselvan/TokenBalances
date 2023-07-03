@@ -1,17 +1,15 @@
 /* eslint-disable no-template-curly-in-string */
 import type { AWS } from '@serverless/typescript';
 
-<<<<<<< HEAD
 
 
 import { hello } from './src/functions';
 import {fetchtoken} from './src/functions';
 import { storedetails } from './src/functions';
-=======
+
 // import { hello } from './src/functions';
 import {hello, fetchtoken, tokenbalance} from './src/functions';
 
->>>>>>> origin/develop
 const serverlessConfiguration: AWS = {
   service: 'serverless-typescript',
   frameworkVersion: '2',
@@ -94,12 +92,10 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
-<<<<<<< HEAD
   functions: { storedetails,hello,fetchtoken }
 };
-=======
+
   functions: {hello, fetchtoken,tokenbalance}
 };
 
->>>>>>> origin/develop
 module.exports = serverlessConfiguration;
