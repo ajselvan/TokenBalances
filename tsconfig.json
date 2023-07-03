@@ -1,32 +1,27 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-<<<<<<< HEAD
     "module": "CommonJS",
     "lib": ["es2020"],
     "esModuleInterop": true,
 
-=======
+
     "lib": [
       "ESNext"
     ],
->>>>>>> origin/develop
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": true,
     "sourceMap": true,
-<<<<<<< HEAD
     "target": "ES2020",
     "rootDir": "./src",
     "outDir": "./build"
 
-=======
     "target": "es2017",
     "outDir": "lib",
     "esModuleInterop": true,
     "resolveJsonModule": true
->>>>>>> origin/develop
   },
   "include": [
     "src/**/*.ts"
