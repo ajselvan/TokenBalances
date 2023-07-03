@@ -106,4 +106,4 @@ export const fetchtoken: APIGatewayProxyHandler = async (event) => {
 };
 
 // Middleware wrapper for the fetchtoken handler function
-export const main = middyfy(fetchtoken);
+export const main = middyfy(fetchtoken);;
