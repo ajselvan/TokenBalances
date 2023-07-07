@@ -1,4 +1,9 @@
 {
+    "compilerOptions": {
+      "target": "ES2018",
+      "module": "ES2020",
+      "esModuleInterop": true
+    },
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "module": "CommonJS",
@@ -16,7 +21,7 @@
     "sourceMap": true,
     "target": "ES2020",
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
 
     "target": "es2017",
     "outDir": "lib",

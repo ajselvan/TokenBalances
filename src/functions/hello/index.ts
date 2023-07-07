@@ -1,11 +1,7 @@
 import schema from './schema';
 
 export default {
-<<<<<<< HEAD
   handler: `${__dirname.split(process.cwd())[1].substring(1)}/file.main`,
-=======
-  handler: `${__dirname.split(process.cwd())[1].substring(1)}/handler.main`,
->>>>>>> origin/develop
   events: [
     {
       http: {
