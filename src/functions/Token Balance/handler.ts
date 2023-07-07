@@ -6,10 +6,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
- import { AptosClient } from "aptos";
-
-
-
+import { AptosClient } from "aptos";
 import dotenv from 'dotenv'
 dotenv.config();
 
@@ -62,12 +59,12 @@ export const tokenbalance = async (event: APIGatewayProxyEvent): Promise<APIGate
             tokenAddress = address
             console.log("Hi polygonn");
             break;
-         case 4:
+          case 4:
             chainName = 'ethereum';
             tokenAddress = address
             console.log("Hi ethereum");
             break;
-            case 5:
+          case 5:
             chainName = 'bsc';
             tokenAddress = address;
             console.log("Hi binance");
@@ -156,7 +153,7 @@ export const tokenbalance = async (event: APIGatewayProxyEvent): Promise<APIGate
         console.log("final", final);
 
         return formatJSONResponse({
-          data:{
+          data: {
             final,
             tokenInfo
           },
