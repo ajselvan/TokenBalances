@@ -4,8 +4,8 @@ import { formatJSONResponse } from '.././../libs/apiGateway';
 import { middyfy } from '.././../libs/lambda';
 import _ from 'lodash';
 import axios from 'axios';
-// import Moralis from "moralis";
-// import { EvmChain } from "@moralisweb3/common-evm-utils";
+import Moralis from "moralis";
+import { EvmChain } from "@moralisweb3/common-evm-utils";
  import { AptosClient } from "aptos";
 
 
@@ -19,12 +19,12 @@ export const tokenbalance = async (event: APIGatewayProxyEvent): Promise<APIGate
 
     const { address, provider, chainId } = event.queryStringParameters as any;
 
-    // const keyy = await Moralis.start({
-    //   apiKey: process.env.MORALIS_API_KEY,
-    // });
-    // console.log(keyy);
+    const keyy = await Moralis.start({
+      apiKey: process.env.MORALIS_API_KEY,
+    });
+    console.log(keyy);
 
-    // const chain = EvmChain.POLYGON;
+    const chain = EvmChain.POLYGON;
 
     const query = new URLSearchParams({
       auth_key: process.env.UNMARSHAL_API_KEY || '',
@@ -50,119 +50,119 @@ export const tokenbalance = async (event: APIGatewayProxyEvent): Promise<APIGate
 
     switch (provider) {
 
-      // case 'moralis':
+      case 'moralis':
 
-      //   console.log("Hi moralissss");
+        console.log("Hi moralissss");
 
-      //   console.log("switch case for moralis");
+        console.log("switch case for moralis");
 
-      //   switch (Number(chainId)) {
-      //     case 3:
-      //       chainName = 'matic';
-      //       tokenAddress = address
-      //       console.log("Hi polygonn");
-      //       break;
-      //    case 4:
-      //       chainName = 'ethereum';
-      //       tokenAddress = address
-      //       console.log("Hi ethereum");
-      //       break;
-      //       case 5:
-      //       chainName = 'bsc';
-      //       tokenAddress = address;
-      //       console.log("Hi binance");
-      //     case 6:
-      //       chainName = 'klaytn';
-      //       tokenAddress = address
-      //       console.log("Hi kalytnnn");
-      //       break;
-      //     default:
-      //       console.log("unknown chainId");
-      //       return formatJSONResponse({
-      //         status: 400,
-      //         message: 'Invalid ChainId',
-      //       },);
-      //       break;
-      //   }
-      //   console.log("Switch case ended for moralis");
+        switch (Number(chainId)) {
+          case 3:
+            chainName = 'matic';
+            tokenAddress = address
+            console.log("Hi polygonn");
+            break;
+         case 4:
+            chainName = 'ethereum';
+            tokenAddress = address
+            console.log("Hi ethereum");
+            break;
+            case 5:
+            chainName = 'bsc';
+            tokenAddress = address;
+            console.log("Hi binance");
+          case 6:
+            chainName = 'klaytn';
+            tokenAddress = address
+            console.log("Hi kalytnnn");
+            break;
+          default:
+            console.log("unknown chainId");
+            return formatJSONResponse({
+              status: 400,
+              message: 'Invalid ChainId',
+            },);
+            break;
+        }
+        console.log("Switch case ended for moralis");
 
-      //   const tokenBalanceResponse = await Moralis.EvmApi.token.getWalletTokenBalances({
-      //     address,
-      //     chain,
-      //   });
+        const tokenBalanceResponse = await Moralis.EvmApi.token.getWalletTokenBalances({
+          address,
+          chain,
+        });
 
-      //   const nativeBalanceResponse = await Moralis.EvmApi.balance.getNativeBalance({
-      //     address,
-      //     chain,
-      //   });
+        const nativeBalanceResponse = await Moralis.EvmApi.balance.getNativeBalance({
+          address,
+          chain,
+        });
 
-      //   const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
-      //     address,
-      //     chain,
-      //   });
+        const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
+          address,
+          chain,
+        });
 
-      //   const convertedResponse = tokenBalanceResponse.toJSON().map((token) => ({
-      //     address: token.token_address,
-      //     balance: token.balance,
-      //     symbol: token.symbol,
-      //     decimals: token.decimals,
-      //     name: token.name,
-      //     logoUrl: token.logo
-      //   }));
+        const convertedResponse = tokenBalanceResponse.toJSON().map((token) => ({
+          address: token.token_address,
+          balance: token.balance,
+          symbol: token.symbol,
+          decimals: token.decimals,
+          name: token.name,
+          logoUrl: token.logo
+        }));
 
-      //   const usdPrices = [] as any;;
+        const usdPrices = [] as any;;
 
-      //   for (let i = 0; i < convertedResponse.length; i++) {
-      //     const address = convertedResponse[i].address;
+        for (let i = 0; i < convertedResponse.length; i++) {
+          const address = convertedResponse[i].address;
 
-      //     const response = await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/${chainName}?contract_addresses=${address}&vs_currencies=usd`);
+          const response = await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/${chainName}?contract_addresses=${address}&vs_currencies=usd`);
 
-      //     await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 5000));
 
-      //     const data = response.data;
+          const data = response.data;
 
-      //     const tokenData = data[address.toLowerCase()];
+          const tokenData = data[address.toLowerCase()];
 
-      //     if (tokenData && tokenData.usd) {
-      //       usdPrices.push(tokenData.usd);
-      //       console.log("USD price:", tokenData.usd);
-      //     } else {
-      //       console.log("USD price: Null");
-      //       usdPrices.push(null);
-      //     }
-      //   }
+          if (tokenData && tokenData.usd) {
+            usdPrices.push(tokenData.usd);
+            console.log("USD price:", tokenData.usd);
+          } else {
+            console.log("USD price: Null");
+            usdPrices.push(null);
+          }
+        }
 
-      //   const tokenInfo = {
-      //     nativePrice: {
-      //       address: tokenPriceResponse?.toJSON()?.nativePrice?.address,
-      //       balance: nativeBalanceResponse?.toJSON()?.balance,
-      //       symbol: tokenPriceResponse?.toJSON()?.nativePrice?.symbol,
-      //       decimals: tokenPriceResponse?.toJSON()?.nativePrice?.decimals,
-      //       name: tokenPriceResponse?.toJSON()?.nativePrice?.name,
-      //       logoUrl: tokenPriceResponse?.toJSON()?.tokenLogo,
-      //       chainId: Number.isNaN(Number(chain)) ? 1 : Number(chain),
-      //       usdPrice: tokenPriceResponse?.result?.usdPrice ? Number(tokenPriceResponse?.result?.usdPrice) : undefined,
-      //     },
-      //   };
+        const tokenInfo = {
+          nativePrice: {
+            address: tokenPriceResponse?.toJSON()?.nativePrice?.address,
+            balance: nativeBalanceResponse?.toJSON()?.balance,
+            symbol: tokenPriceResponse?.toJSON()?.nativePrice?.symbol,
+            decimals: tokenPriceResponse?.toJSON()?.nativePrice?.decimals,
+            name: tokenPriceResponse?.toJSON()?.nativePrice?.name,
+            logoUrl: tokenPriceResponse?.toJSON()?.tokenLogo,
+            chainId: Number.isNaN(Number(chain)) ? 1 : Number(chain),
+            usdPrice: tokenPriceResponse?.result?.usdPrice ? Number(tokenPriceResponse?.result?.usdPrice) : undefined,
+          },
+        };
 
-      //   console.log("tokenInfo", tokenInfo);
+        console.log("tokenInfo", tokenInfo);
 
-      //   const final = convertedResponse.map((token, index) => ({
-      //     ...token,
-      //     chainId: Number.isNaN(Number(chain)) ? 1 : Number(chain),
-      //     usdPrice: usdPrices[index]
-      //   }));
+        const final = convertedResponse.map((token, index) => ({
+          ...token,
+          chainId: Number.isNaN(Number(chain)) ? 1 : Number(chain),
+          usdPrice: usdPrices[index]
+        }));
 
-      //   console.log("final", final);
+        console.log("final", final);
 
-      //   return formatJSONResponse({
-      //     data:{
-      //       final,
-      //       tokenInfo
-      //     },
-      //     status: 200,
-      //     message: 'Token Balance Successfully',
-      //   });
+        return formatJSONResponse({
+          data:{
+            final,
+            tokenInfo
+          },
+          status: 200,
+          message: 'Token Balance Successfully',
+        });
 
       default:
         switch (Number(chainId)) {
